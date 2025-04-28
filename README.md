@@ -39,35 +39,31 @@ Step 2: Apply annotation to a class and its method
 
 Step 3: Read the annotations using reflection
         
-		import java.lang.reflect.Method;
-		
-		public class AnnotationProcessor{
-		  public static void main(String args[]){
-		    // class level annotation
-		    Class<MyAnnotationClass> obj = MyAnnotationClass.class;
-			
-			if(obj.isAnnotationPresent(MyAnnotationClass.class)){
-			  MyAnnotationClass  myAnnotation = obj.getAnnotation(MyAnnotationClass.class);
-			  System.out.println("Class Annotation :");
-			  System.out.println("Author :"+MyAnnotationClass.author()):
-			  System.out.println("Purpose :"+MyAnnotationClass.purpose()):
-			  System.out.println(" -------------------------------------------------");
-			  
-			  
-			// Process method-level annotations
+	public class AnnotationProcessor {
+    public static void main(String args[]) {
+        // Class level annotation
+        Class<MyAnnotationClass> obj = MyAnnotationClass.class;
+
+        if (obj.isAnnotationPresent(MyAnnotation.class)) {
+            MyAnnotation myAnnotation = obj.getAnnotation(MyAnnotation.class);
+            System.out.println("Class Annotation:");
+            System.out.println("Author: " + myAnnotation.author());
+            System.out.println("Purpose: " + myAnnotation.purpose());
+            System.out.println("-------------------------------------------------");
+
+            // Process method-level annotations
             for (Method method : obj.getDeclaredMethods()) {
-            if (method.isAnnotationPresent(Info.class)) {
-                MyAnnotationClass info = method.getAnnotation(Info.class);
-                System.out.println("Method: " + method.getName());
-                System.out.println("Author: " + MyAnnotationClass.author());
-                System.out.println("Purpose: " + MyAnnotationClass.purpose());
-                System.out.println("--------------------------");
+                if (method.isAnnotationPresent(MyAnnotation.class)) {
+                    MyAnnotation info = method.getAnnotation(MyAnnotation.class);
+                    System.out.println("Method: " + method.getName());
+                    System.out.println("Author: " + info.author());
+                    System.out.println("Purpose: " + info.purpose());
+                    System.out.println("--------------------------");
+                }
             }
         }
     }
-    }
-	}
-		
+}
 		
 	Output :
 	
